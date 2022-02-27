@@ -28,119 +28,73 @@ and AM coherent demodulation analysis and more.
 
 ## Introduction
 
-  Phase Lock Loop (PLL)  is the most important block of any clocking system of circuit design and comprise essential applications which includes synchronization of cock in communication system, RF applications , wireless devices, day to day modern electronic equipments. PLLs consists of many blocks where the major ones are Phase Frequency Detector(PFD), Charge Pump(CP), Low Pass Filter(LPF), Voltage Controled Oscillator(VCO) and Frequency Divider. PFD is the major block of a frequency synthesiser. A PFD compares the two input signals, i.e. reference input and feedback input as shown in Fig. 1. Depending upon the phase difference, PFD generates either UP signal or DOWN signal. This signal drives CP which produces a current pulse with corresponding duty ratio.
-  CP circuit consists of a Pull up and Pull-Down network. Charge pump maintain constant output with a varying voltage which later is used to tune the VCO. In Fig. (3) Inputs “UP” and “Down” control the Switches S1and S2 respectively. A pulse of width dT Up turns S1on for dT sec, availing I1 to charge C1. Vout goes up by dT*I1/C1. With same phenomena, Down pulse gives a drop in Vout. If Up and Down are provided simultaneously, I1flows through S1and S2 as I2, resulting into Vout unchanged.
+  Phase Lock Loop (PLL)  is the most important block of any clocking system of circuit design and comprise essential applications which includes synchronization of cock in communication system, RF applications , wireless devices, day to day modern electronic equipments. PLLs consists of many blocks where the major ones are Phase Frequency Detector(PFD), Charge Pump(CP), Low Pass Filter(LPF), Voltage Controled Oscillator(VCO) and Frequency Divider. PFD is the major block of a frequency synthesiser.</br> A PFD compares the two input signals, i.e. reference input and feedback input as shown in Fig. 1. Depending upon the phase difference, PFD generates either UP signal or DOWN signal. This signal drives CP which produces a current pulse with corresponding duty ratio.
+  </br>CP circuit consists of a Pull up and Pull-Down network. Charge pump maintain constant output with a varying voltage which later is used to tune the VCO. In Fig. (3) Inputs “UP” and “Down” control the Switches S1and S2 respectively. A pulse of width dT Up turns S1on for dT sec, availing I1 to charge C1. Vout goes up by dT*I1/C1. With same phenomena, Down pulse gives a drop in Vout. If Up and Down are provided simultaneously, I1flows through S1and S2 as I2, resulting into Vout unchanged.
 
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155741693-ada2c3e9-4e41-4473-857c-a0bd099c9e77.png">
+<img src="https://user-images.githubusercontent.com/86653033/155875626-d3c9baf2-c100-4356-9b3e-5915b943f3ab.png">
 </p>
 <p align="center">
-Fig 1. Mixer schematic
+Fig 1. (a) Cascaded PFD/CP/LPF circuit diagram (b) Transmission gate based DFlipFlop
 </p>
 
-Fig 1. shows the mixer schematic, consisting of a folded Gilbert cell. Here the local oscillator's (LO) differential input is fed to M1-M2 and M3-M4 pairs which act as transconductance amplifiers. The output current of both amplifiers is summed with opposite polarity and passed through load resistors R_L to produce the differential output voltage. The transconductance of both amplifiers can be varied by varying the currents I_1 and I_2. This is achieved with current mirror formed using FET’s M7-M9 and M8-M10 controlled using the differential pair (M5-M6). The Radio Frequency (RF) signal is applied to this differential pair M5-M6, hence modulating the gain for the LO signal. The use of current mirror results in larger output voltage swing and ease of biasing.
+## Expected waveform
+<p align="center">
+<img src ="https://user-images.githubusercontent.com/86653033/155875851-5accd622-1326-48ef-a9a8-ed6f0b9c7db1.png">
+  </p>
+  <p align="center">
+  Waveform of cascaded PFD and CP
+  </p>
 
-## Device Characterization
+## Circuit implementation of PFD block.
+This is the CMOS circuit implementation of AND Gate(Fig. (a) and NOR Gate( Fig. (b))
+<p align="center">
+ 
 
-Before the design of any circuit, a thorough understanding of the characteristics of used device is required. This becomes even more crucial for MOS devices of lower technology nodes which deviate a lot from the ideal MOS characteristics due to short channel effects.
-
-The device characterization of NMOS and PMOS was performed using standard circuits for device characterization. The mosfets were taken from 28nm PDK library with width to length ratio of 0.3um/0.03um. The drain to source voltages and gate to source voltages were sweeped to produce the below plots.
-
+<img src ="https://user-images.githubusercontent.com/86653033/155877048-11139395-caa8-4afc-9cb7-968f24b1d0d1.png">
+  </p>
+This the D latch(modified) implementation where NOT gate is instantiated after symbolising the design in Synopsys tool</br>
 <br/>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155748353-a8f99600-4016-4db4-a576-994fc59fc3b5.png">
+<img src ="https://user-images.githubusercontent.com/86653033/155876934-b2091c79-58f7-4a90-a96c-a6028b1dbbe7.png">
+  </p>
+This the PFD block which is implemented using D Latch and And Gate for providing Reset (R) control and the UP output is denoted by "QA" and DOWN is represented by "QB". ans is further symbolized using the tool.</br> CLKA represents the Reference clock</br> CLKB represens the Feedback signal </br>
+
+ <p align="center">
+<img src ="https://user-images.githubusercontent.com/86653033/155877443-36e258a4-d65e-4ce1-8f64-b23a9a946abd.png">
 </p>
+
+</br>This is the circuit implementation of Charge Pump whis is further connected to LPF block</br>
 <p align="center">
-Fig 2. I_D vs V_DS for NMOS device
+<img src ="https://user-images.githubusercontent.com/86653033/155877668-0f029bb0-786a-4fd6-a104-38a2dcd56c71.png">
 </p>
 
-Fig 2. presents the drain current (I_D) of NMOS device as a function of drain to source voltage (V_DS) for some fixed value of gate to source voltage (V_GS). As can be observed the device in saturation region has a high slope indicating a strong dependence on V_DS. This presents a challenge to the circuit designer as the MOS no longer remains an ideal transconductance device!
-
-<br/>
+</br>This is the cascaded implementation of the PFD/CP/LPF combined</br>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155748383-1163c4ea-103f-49d2-a4af-e50f61ac9591.png">
-</p>
-<p align="center">
-Fig 3. I_D vs V_GS for NMOS device
-</p>
+<img src ="https://user-images.githubusercontent.com/86653033/155877912-5ed679a1-8697-4ca4-8e7f-2ed804bb54b8.png">
+</p></br>
 
-Fig 3. presents I_D of NMOS device as a function of V_GS for some fixed value of V_DS. As can be observed the device is no longer follows the square law but has a linear rise even in saturation region due to velocity saturation effects!
 
-<br/>
-<p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155748683-c204c584-82d0-460f-80d6-8104c5c9ba94.png">
-</p>
-<p align="center">
-Fig 4. I_D vs V_SG for PMOS device
-</p>
+  
+ 
+ 
 
-Fig 4. presents I_D of PMOS device as a function of V_SG for some fixed value of V_SG. The PMOS device has lower current than NMOS for similar voltage levels.
-
-## Circuit Design
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155755254-912c3921-fa5f-4111-bebc-9109666a7832.png">
-</p>
-<p align="center">
-Fig 5. Mixer schematic
-</p>
-
-Fig 5. presents the mixer schematic. The schematic has been modified to include PMOS devices as active current loads followed with cascode transistors. This results in larger voltage gain while consuming lesser head room compared to resistors. This modification requires proper biasing which in this case has been provided using a PMOS followed with a resistor network. This configuration can be easily replaced with a low voltage cascode current mirror if better matching is required in presence of threshold voltage variations. Although square law cannot be used to determine the quiescent currents, width scaling to generate scaled currents still holds especially when fingers are used. Hence a reference current source (I) is used and mirrored in the RF branch, while the active PMOS loads are designed to mirror I/2 each. 
 
 ## Simulation Results
-
+Case1:- When Reference clock(CLKA) leads Feedback Clock(CLKB)</br>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155828213-806a2334-16f8-49d9-be31-1632b2d17759.png">
-</p>
+<img src ="https://user-images.githubusercontent.com/86653033/155878058-63e6187c-8019-433f-af11-beed874268b8.png">
+</p></br>
+ Case2:- When CLKA lags CLKB</br>
+ <p align="center">
+<img src ="https://user-images.githubusercontent.com/86653033/155878125-98fee578-135e-400f-a002-093a4ce1d658.png">
+</p></br>
+Considering Case1 , when CP and LPF is being cascaded with the PFD block the simulation result is being pfovided</br>
 <p align="center">
-Fig 6. Mixer simulation input and output waveforms
-</p>
+<img src ="https://user-images.githubusercontent.com/86653033/155879176-d372f11a-0f8d-4b15-855b-d848a26013f6.png">
+</p></br>
 
-The simulation of mixer was performed using specifications as presented in [1]. Fig 6. shows the mixer output waveform obtained by applying f_RF = 50MHz and f_LO = 450MHz. The resulting output signal has a frequency IF_1 = 400MHz and IF_2  = 500MHz. Note that the mixer provides almost unity gain or a conversion gain of 0.131dB precisely.
-
-<br/>
-<p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155828222-2450f627-bf53-462a-b0da-fac1b0b3abcc.png">
-</p>
-<p align="center">
-Fig 7. DFT of output waveform
-</p>
-
-Fig 7. shows the output signal's DFT normalized wrt to peak frequency component. As can be observed, the spectrum peaks around f = 400MHz and f = 500MHz confirming the multiplying property. Intrestingly figure also shows presence of a 50MHz component as some of the RF signal gets leaked to the output.
-
-<br/>
-<p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155829965-e9b49c90-fa84-4958-9092-fc9c61f89e83.png">
-</p>
-<p align="center">
-Fig 8. Testbench used to determine -3dB point
-</p>
-
-Fig 8. shows the testbench setup used to determine -3dB point for the mixer. A "vsource" element is used to provide the RF and LO signal of amplitude 100mV. AC analysis was performed by using the default frequency as sweep variable and the magnitude of output differential signal was set as output. Note that the output signals are terminated with two NMOS source follower circuits to simulate the effect of connecting the mixer to further stages in an IC. 
-
-
-<br/>
-<p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155829961-13622c5c-7f77-4aa9-aea0-61ac9921b12e.png">
-</p>
-<p align="center">
-Fig 9. Magnitude plot of output signal
-</p>
-
-Fig 9. shows that the -3dB point for the mixer is achieved at a frequency of 7.14GHz. Hence the mixer can be easily used for ISM band between 902MHz and 928MHz as well.
-
-<br/>
-
-<br/>
-<p align="center">
-<img src="https://user-images.githubusercontent.com/41693726/155830279-15d2d7ff-7a21-42c6-bea2-0e55e32a6a5f.png">
-</p>
-<p align="center">
-Fig 10. DC transfer curves of the mixer
-</p>
-
-Finally, Fig 10. presents the DC transfer curves of the designed mixer. The mixer lacks linearity especially for higher voltage levels of RF signal, this is evident from the unevenly spaced transfer curves which bunch up for higher RF voltage.
 
 ## Performance Comparison
 
@@ -157,11 +111,11 @@ The table presents performance comparison with previously done work in literatur
 
 ## Conclusion
 
-The repository presents the design and simulation of Gilbert cell based mixer on 28nm technology node. The design consumes 0.54mW of power at 1.8V and provides nearly unity gain. Future works can include improvement of conversion gain and increase in linearity by using better designs and biasing techniques. 
+The repository presents the design and simulation of CMOS based 28nm Technoogy for CP block being cased with PFD and LPF Blocks. 
 
 ## Author
 
-Soumitro Vyapari, B.Tech(EE), Indian Institute of Technology Tirupati,  Andhra Pradesh 517506.
+Bishal Kumar Gupta, M.tech at Defence INstitute of Adanced Technology-DRDO with specialization in VLSI and Embedded Systems.
 
 ## Acknowledgements
 
@@ -173,7 +127,19 @@ Soumitro Vyapari, B.Tech(EE), Indian Institute of Technology Tirupati,  Andhra P
 
 ## References
 
-1. Daniel Celino, Yuri Olivato, Talita Granado, J.H. Correia, and Joao Carmo. A rf modulator demodulator for small signal range wireless devices. 07 2016.<br/>
-2. SAZ Murad, RK Pokharel, H Kanaya, and K Yoshida. A 3.0–5.0 ghz high linearity and low power cmos up-conversion mixer for uwb applications. In 2010 IEEE International Conference of Electron Devices and SolidState Circuits (EDSSC), pages 1–4. IEEE, 2010.<br/>
-3. Design of Analog CMOS Integrated Circuits (Behzad Razavi), McGraw-Hill, 2001.
+[1] I. Galton, B. Razavi, J. Cowles and P. Kinget, "CMOS phase-locked
+loops for frequency synthesis," 2010 IEEE International Solid-State
+Circuits Conference - (ISSCC), 2010, pp. 521-521, doi:
+10.1109/ISSCC.2010.5433853.</br>
+[2] H. Dadhich, V. Maurya, K. Verma and S. Jaiswal, "Design and analysis
+of different type of charge pump using CMOS technology," 2016
+International Conference on Advances in Computing, Communications
+and Informatics (ICACCI), 2016, pp. 294-298, doi:
+10.1109/ICACCI.2016.7732062.</br>
+[3] RF Microelectronics Textbook written by Behzad Razavi.</br>
+[4] Won-Hyo Lee, Jun-Dong Cho and Sung-Dae Lee, "A high speed and
+low power phase-frequency detector and charge-pump," Proceedings of
+the ASP-DAC '99 Asia and South Pacific Design Automation
+Conference 1999 (Cat. No.99EX198), 1999, pp. 269-272 vol.1, doi:
+10.1109/ASPDAC.1999.760011.</br>
 
