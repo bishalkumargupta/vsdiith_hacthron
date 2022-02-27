@@ -12,6 +12,19 @@
 - [Acknowledgements](https://github.com/SoumitroV/Design-and-Simulation-of-a-Gilbert-Cell-based-Mixer-on-CMOS-28nm-Technology/edit/main/README.md#acknowledgements)
 - [References](https://github.com/SoumitroV/Design-and-Simulation-of-a-Gilbert-Cell-based-Mixer-on-CMOS-28nm-Technology/edit/main/README.md#references)
 
+## Abstract
+CMOS based Phase Frequency Detector and charge
+pump is being Simulated and recorded on 28nm technology. LPF
+is also being cascaded and being studied. Phase frequency
+Detector plays a most important role in a PLL. PFD decides the
+performance and accuracy of a PLL. Charge pump is also a major
+block for a PLL which translate frequency and phase into voltages
+used to tune VCO. PLL act as clock generator and is a non-linear
+feedback system that tracks the phase of the input signal and
+minimise the phase error at the local oscillator. PLL has a wide
+range of application in modern and conventional electronics and
+communication technologies, such as frequency synthesizers, FM
+and AM coherent demodulation analysis and more.
 ## Introduction
 
 Mixers find wide use in communication applications especially in up and down converter analog font ends. New applications such as Radio Frequency Integrated Circuits (RFIC) require low-power, low-cost single chip designs. This repository presents the design and simulation of Gilbert cell based mixer on CMOS 28nm technology. The design has been created on Synopsis [Custom Compiler](https://www.synopsys.com/implementation-and-signoff/custom-design-platform/custom-compiler.html) software and simulated using [PrimeWave](https://www.synopsys.com/implementation-and-signoff/ams-simulation/primewave.html) environment. 
