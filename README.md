@@ -1,4 +1,4 @@
-# Design and Simulation of a Gilbert Cell based Mixer on CMOS 28nm Technology
+# Design of CMOS based cascaded Phase Frequency Detector with Charge Pump and LPF.
 
 ## Table of Contents
 
